@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exhibitions | Venkat Raman Singh Shyam</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons (Phosphor) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg: #111111;
+            --color-text: #e5e5e5;
+            --color-accent: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent);
+        }
+
+        .nav-scrolled {
+            background: rgba(17, 17, 17, 0.9);
+            backdrop-filter: blur(10px);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Timeline Styles */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line::before {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-amber-500 selection:text-black">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 py-8 transition-all duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html"
+                class="text-xl md:text-2xl font-serif font-bold text-white tracking-wider flex items-center gap-2 hover:text-amber-500 transition-colors">
+                <i class="ph-fill ph-leaf text-amber-500"></i>
+                <span>VENKAT SHYAM</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="index.html"
+                    class="nav-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase font-medium transition-colors">Home</a>
+                <a href="index.html#about"
+                    class="nav-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase font-medium transition-colors">The
+                    Artist</a>
+
+                <!-- Exhibitions & Events Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="nav-link text-amber-500 hover:text-amber-400 text-sm tracking-widest uppercase font-medium transition-colors flex items-center gap-1">
+                        Exhibitions & Events <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div
+                        class="absolute left-0 mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <a href="exhibitions.html"
+                            class="block px-4 py-3 text-sm text-gray-300 hover:bg-amber-500/10 hover:text-amber-500 transition-colors">Exhibitions</a>
+                        <a href="participation.html"
+                            class="block px-4 py-3 text-sm text-gray-300 hover:bg-amber-500/10 hover:text-amber-500 transition-colors">Participation</a>
+                    </div>
+                </div>
+
+                <!-- Acclaim & Collections Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="nav-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase font-medium transition-colors flex items-center gap-1">
+                        Acclaim & Collections <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div
+                        class="absolute left-0 mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <a href="achievements.html"
+                            class="block px-4 py-3 text-sm text-gray-300 hover:bg-amber-500/10 hover:text-amber-500 transition-colors">Achievements</a>
+                        <a href="collections.html"
+                            class="block px-4 py-3 text-sm text-gray-300 hover:bg-amber-500/10 hover:text-amber-500 transition-colors">Collections</a>
+                    </div>
+                </div>
+
+                <a href="publications.html"
+                    class="nav-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase font-medium transition-colors">Publications</a>
+
+                <a href="index.html#collection"
+                    class="nav-link px-6 py-2 border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black transition-all rounded-full text-xs uppercase tracking-widest font-bold">Acquire
+                    Art</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white hover:text-amber-500">
+                <i class="ph ph-list text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu"
+            class="hidden absolute top-full left-0 w-full bg-[#111111] border-b border-gray-800 md:hidden flex flex-col items-center py-6 space-y-6 shadow-2xl">
+            <a href="index.html"
+                class="mobile-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase">Home</a>
+            <a href="exhibitions.html"
+                class="mobile-link text-amber-500 hover:text-amber-400 text-sm tracking-widest uppercase">Exhibitions</a>
+            <a href="participation.html"
+                class="mobile-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase">Participation</a>
+            <a href="achievements.html"
+                class="mobile-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase">Achievements</a>
+            <a href="collections.html"
+                class="mobile-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase">Collections</a>
+            <a href="publications.html"
+                class="mobile-link text-gray-300 hover:text-amber-400 text-sm tracking-widest uppercase">Publications</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-40 pb-20 bg-[#161616]">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-serif text-white mb-6 gsap-fade-up">Global Exhibitions</h1>
+            <div class="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-8 gsap-fade-up"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed gsap-fade-up">
+                From the tribal heartlands of India to prestigious galleries in Europe, America, and Australia, Venkat
+                Raman Singh Shyam's art transcends borders.
+            </p>
+        </div>
+    </header>
+
+    <!-- Content Section -->
+    <section class="py-20 bg-[#111111] relative">
+        <div class="container mx-auto px-6 max-w-5xl">
+
+            <!-- Filter/Tabs (Optional Visual) -->
+            <div class="flex justify-center gap-4 mb-16 flex-wrap">
+                <a href="#featured"
+                    class="px-6 py-2 rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors text-sm uppercase tracking-widest">Featured</a>
+                <a href="#solo"
+                    class="px-6 py-2 rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors text-sm uppercase tracking-widest">Solo
+                    Shows</a>
+                <a href="#international"
+                    class="px-6 py-2 rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors text-sm uppercase tracking-widest">International</a>
+                <a href="#group"
+                    class="px-6 py-2 rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors text-sm uppercase tracking-widest">Group
+                    Shows</a>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative timeline-line space-y-12">
+
+                <!-- 2025 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            Presence of Absence in Man</h3>
+                        <p class="text-gray-400 text-sm mb-2">The Stainless Gallery, Okhla, New Delhi</p>
+                        <span
+                            class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-amber-500 tracking-wider">22-30
+                            March 2025</span>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-amber-500 rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <p class="text-gray-500 text-sm leading-relaxed">Upcoming solo exhibition exploring the human
+                            condition through Gond motifs.</p>
+                    </div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <p class="text-gray-500 text-sm leading-relaxed">Showcasing contemporary tribal art at India's
+                            premier multi-disciplinary arts festival.</p>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-gray-600 group-hover:bg-amber-500 transition-colors rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            Serendipity Art Festival</h3>
+                        <p class="text-gray-400 text-sm mb-2">Panaji, Goa</p>
+                        <span class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">Dec
+                            15-22, 2024</span>
+                    </div>
+                </div>
+
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            Indiyart, Viral Gatha</h3>
+                        <p class="text-gray-400 text-sm mb-2">Bikaner House, New Delhi</p>
+                        <span class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">Dec
+                            1-4, 2024</span>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-gray-600 group-hover:bg-amber-500 transition-colors rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <p class="text-gray-500 text-sm">Group exhibition celebrating indigenous storytelling.</p>
+                    </div>
+                </div>
+
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <p class="text-gray-500 text-sm">Major art fair participation.</p>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-gray-600 group-hover:bg-amber-500 transition-colors rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">Art
+                            Mumbai</h3>
+                        <p class="text-gray-400 text-sm mb-2">Race Course, Mahalaxmi, Mumbai</p>
+                        <span class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">Nov
+                            14-17, 2024</span>
+                    </div>
+                </div>
+
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            Adi-Anandi</h3>
+                        <p class="text-gray-400 text-sm mb-2">Bharat Bhavan Anniversary, Bhopal</p>
+                        <span
+                            class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-amber-500 tracking-wider border border-amber-500/20">Solo
+                            Show • 2024</span>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-amber-500 rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <p class="text-gray-500 text-sm leading-relaxed">A prestigious solo exhibition celebrating the
+                            42nd anniversary of Bharat Bhavan.</p>
+                    </div>
+                </div>
+
+                <!-- 2023 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <p class="text-gray-500 text-sm">Design Biennale at the historic Red Fort.</p>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-gray-600 group-hover:bg-amber-500 transition-colors rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            Architecture & Design Biennale</h3>
+                        <p class="text-gray-400 text-sm mb-2">Red Fort, Delhi</p>
+                        <span class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">Dec
+                            8-15, 2023</span>
+                    </div>
+                </div>
+
+                <!-- International Highlights (Earlier) -->
+                <div class="py-8 text-center" id="international">
+                    <h4 class="text-xl font-serif text-amber-500 mb-2">International Highlights</h4>
+                    <div class="w-12 h-1 bg-white/10 mx-auto rounded-full"></div>
+                </div>
+
+                <!-- 2018-2020 USA/UK -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            Many Visions, Many Versions</h3>
+                        <p class="text-gray-400 text-sm mb-2">Touring Exhibition, USA</p>
+                        <div class="flex flex-wrap gap-2 justify-end">
+                            <span
+                                class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">Weisman
+                                Art Museum (2018)</span>
+                            <span
+                                class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">Frost
+                                Art Museum (2018)</span>
+                            <span
+                                class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">Leigh
+                                Yawkey Woodson (2020)</span>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <p class="text-gray-500 text-sm leading-relaxed">A major touring exhibition of Indigenous Art
+                            from India, traveling across prestigious US museums.</p>
+                    </div>
+                </div>
+
+                <!-- APT8 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <p class="text-gray-500 text-sm leading-relaxed">The 8th Asia Pacific Triennial of Contemporary
+                            Art. A significant milestone in bringing Gond art to the global contemporary stage.</p>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            APT8</h3>
+                        <p class="text-gray-400 text-sm mb-2">Queensland Art Gallery, Australia</p>
+                        <span
+                            class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">2015-16</span>
+                    </div>
+                </div>
+
+                <!-- Sakahan -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center group">
+                    <div class="md:text-right order-1 md:order-1 pr-8 md:pr-12">
+                        <h3 class="text-2xl font-serif text-white mb-1 group-hover:text-amber-500 transition-colors">
+                            Sakahàn: International Indigenous Art</h3>
+                        <p class="text-gray-400 text-sm mb-2">National Gallery of Canada, Ottawa</p>
+                        <span class="inline-block bg-white/5 px-3 py-1 rounded text-xs text-gray-400 tracking-wider">May
+                            15 - Sep 2, 2013</span>
+                    </div>
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-[#111111] z-10 hidden md:block">
+                    </div>
+                    <div class="order-2 md:order-2 pl-8 md:pl-12">
+                        <p class="text-gray-500 text-sm leading-relaxed">The largest-ever global survey of contemporary
+                            indigenous art.</p>
+                    </div>
+                </div>
+
+                <!-- Past Solo Shows -->
+                <div class="py-8 text-center" id="solo">
+                    <h4 class="text-xl font-serif text-amber-500 mb-2">Selected Past Solo Shows</h4>
+                    <div class="w-12 h-1 bg-white/10 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div
+                        class="bg-[#1a1a1a] p-6 rounded border border-white/5 hover:border-amber-500/30 transition-colors">
+                        <div class="text-amber-500 text-xs font-bold mb-2">2022</div>
+                        <h4 class="text-white font-serif text-lg">Dakshinchitra Residency Show</h4>
+                        <p class="text-gray-500 text-sm">Chennai, India</p>
+                    </div>
+                    <div
+                        class="bg-[#1a1a1a] p-6 rounded border border-white/5 hover:border-amber-500/30 transition-colors">
+                        <div class="text-amber-500 text-xs font-bold mb-2">2017</div>
+                        <h4 class="text-white font-serif text-lg">Patch of Blue</h4>
+                        <p class="text-gray-500 text-sm">Pullman Hotel Aerocity, New Delhi</p>
+                    </div>
+                    <div
+                        class="bg-[#1a1a1a] p-6 rounded border border-white/5 hover:border-amber-500/30 transition-colors">
+                        <div class="text-amber-500 text-xs font-bold mb-2">2015</div>
+                        <h4 class="text-white font-serif text-lg">Perspective Gallery</h4>
+                        <p class="text-gray-500 text-sm">Virginia Tech, Blacksburg, USA</p>
+                    </div>
+                    <div
+                        class="bg-[#1a1a1a] p-6 rounded border border-white/5 hover:border-amber-500/30 transition-colors">
+                        <div class="text-amber-500 text-xs font-bold mb-2">2011</div>
+                        <h4 class="text-white font-serif text-lg">The Creation</h4>
+                        <p class="text-gray-500 text-sm">Jamaat Art Gallery, Mumbai</p>
+                    </div>
+                    <div
+                        class="bg-[#1a1a1a] p-6 rounded border border-white/5 hover:border-amber-500/30 transition-colors">
+                        <div class="text-amber-500 text-xs font-bold mb-2">2010</div>
+                        <h4 class="text-white font-serif text-lg">The Tribal World of Venkat Raman Singh Shyam</h4>
+                        <p class="text-gray-500 text-sm">Brookline Arts Centre, Massachusetts, USA</p>
+                    </div>
+                    <div
+                        class="bg-[#1a1a1a] p-6 rounded border border-white/5 hover:border-amber-500/30 transition-colors">
+                        <div class="text-amber-500 text-xs font-bold mb-2">2009</div>
+                        <h4 class="text-white font-serif text-lg">Man Jathay Daray</h4>
+                        <p class="text-gray-500 text-sm">Museum of Mankind, Bhopal & Bangalore</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <h4 class="text-2xl font-serif text-white mb-2">Venkat Raman Singh Shyam</h4>
+                    <p class="text-gray-500 text-sm">Artist, Storyteller, Visionary • Bhopal, India</p>
+                    <a href="mailto:shyamvenkat05@gmail.com"
+                        class="text-amber-500 text-sm hover:underline mt-2 block">shyamvenkat05@gmail.com</a>
+                </div>
+                <div class="flex gap-6">
+                    <a href="https://www.instagram.com/artistvenkatshyam/?hl=en" target="_blank"
+                        class="text-gray-400 hover:text-amber-500 transition-colors flex items-center gap-2">
+                        <i class="ph-fill ph-instagram-logo"></i> Instagram
+                    </a>
+                    <a href="https://en.wikipedia.org/wiki/Venkat_Shyam" target="_blank"
+                        class="text-gray-400 hover:text-amber-500 transition-colors flex items-center gap-2">
+                        <i class="ph-fill ph-article"></i> Wikipedia
+                    </a>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/5 text-center text-xs text-gray-600">
+                <p>&copy; <span id="year">2026</span> Venkat Raman Singh Shyam. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Animations
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+    </script>
+</body>
+
+</html>
